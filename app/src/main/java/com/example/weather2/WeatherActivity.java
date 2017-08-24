@@ -92,6 +92,8 @@ public class WeatherActivity extends AppCompatActivity {
             weatherLayout.setVisibility(View.INVISIBLE);
             requestWeather(weatherId);
         }
+
+        //手动刷新
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -162,6 +164,7 @@ public class WeatherActivity extends AppCompatActivity {
         loadBGP();
     }
 
+    //背景壁纸
     private void loadBGP() {
         String requestUrl = "http://guolin.tech/api/bing_pic";
         HttpUtil.sendOkHttpRequest(requestUrl, new Callback() {
@@ -193,7 +196,7 @@ public class WeatherActivity extends AppCompatActivity {
         String degree = weather.now.temperature + "℃";
         String weatherInfo = weather.now.more.txt;
         titleCity.setText(cityName);
-        titleUpdateTime.setText(updateTime);
+        titleUpdateTime.setText("更新时间:"+updateTime);
         degreeText.setText(degree);
         weatherInfoText.setText(weatherInfo);
         forecastLayout.removeAllViews();
@@ -206,8 +209,8 @@ public class WeatherActivity extends AppCompatActivity {
             TextView minText = (TextView) view.findViewById(R.id.min_text);
             dateText.setText(forecast.date);
             infoText.setText(forecast.more.txt);
-            maxText.setText(forecast.temperature.MAX);
-            minText.setText(forecast.temperature.MIN);
+            maxText.setText(forecast.temperature.max);
+            minText.setText(forecast.temperature.min);
             forecastLayout.addView(view);
         }
         if (weather.aqi != null)
